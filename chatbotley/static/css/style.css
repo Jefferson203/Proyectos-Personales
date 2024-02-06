@@ -1,0 +1,156 @@
+body {
+    background: #f5f8fa;
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; 
+    font-size: 9pt;
+  
+}
+.container{
+    margin-top: -30px; 
+    width: 80%;  /* Ajustar el ancho del contenedor a su gusto */
+}
+.chatbox-container {
+    width: 100%; /* puedes ajustar el tamaño según tus necesidades */
+    padding: 20px;
+    background: #fff;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* añade un borde al contenedor */
+    box-sizing: border-box; /* para que el padding y el borde no aumenten el tamaño del contenedor */
+    display: flex; /* centra el chatbox verticalmente */
+    justify-content: center; /* centra el chatbox horizontalmente */
+    align-items: center; /* centra el chatbox verticalmente */
+    
+}
+
+#chatbox {
+    width: calc(100% - 0.01cm); /* hace que el chatbox ocupe casi todo el contenedor, pero deja un margen de 0.3cm a cada lado */
+    height: 400px; /* hace que el chatbox tenga la misma altura que el contenedor */
+    background: #fff;
+    border-radius: 8px;
+    overflow-y: scroll;  /* permite el desplazamiento */
+    padding: 5px;
+    box-shadow: inset 0 0 3px rgba(5, 5, 5, 0.2); /* añade la sombra hundida */
+
+    /* Oculta la barra de desplazamiento en varios navegadores */
+    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    
+    
+    
+    /* Oculta la barra de desplazamiento en Chrome, Safari and Edge */
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+
+
+/* Oculta la barra de desplazamiento en Chrome, Safari y Opera */
+#chatbox::-webkit-scrollbar {
+    display: none;
+}
+body::-webkit-scrollbar {
+    display: none;
+}
+
+.message {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 70%;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+}
+.user-message {
+    background-color: #0b93f6;
+    color: white;
+    border-radius: 18px;
+    border-top-right-radius: 0;
+    float: right;
+    clear: both;
+}
+.user-message img {
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+.bot-message {
+    background-color: #f8f8f8;
+    border-radius: 18px;
+    border-bottom-left-radius: 0;
+    float: left;
+    clear: both;
+}
+
+.bot-message p {
+    color: #333;
+}
+#inputGroup {
+    position: relative;
+}
+#userInput {
+    border-radius: 50px;
+    border: 1px solid #ced4da;
+    padding-right: 50px;
+    overflow: hidden;
+    resize: none;
+    height: 50px;
+}
+#sendButton {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 5px;
+    border-radius: 50px;
+    padding: 5px 10px;
+}
+
+#chat-header {
+    background-color: #1863b8;
+    color: white;
+    padding: 15px;
+    border-radius: 8px 8px 0 0;
+    text-align: center;
+}
+
+#chatbot-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+#chat-title {
+    font-size: 1.3em;
+    margin-top: 10px;
+}
+
+#chat-description {
+    font-size: 1em;
+    margin-top: 5px;
+}
+
+.dots {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+}
+
+.dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #333;
+    opacity: 0.4;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {opacity: 0.4;}
+    50% {opacity: 1;}
+    100% {opacity: 0.4;}
+}
+
+
