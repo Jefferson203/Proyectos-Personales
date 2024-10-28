@@ -1,0 +1,205 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+#sidebar {
+  height: 100vh;
+  width: 250px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #2c3e50; /* Nuevo color para el sidebar */
+  padding-top: 20px;
+  overflow-x: hidden;
+  transition: width 0.5s;
+  border-right: 1px solid #34495e; /* Nuevo color para el borde del sidebar */
+  box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+#sidebar .logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#sidebar .logo img {
+  width: 80%;
+  border-radius: 10%;
+}
+
+#sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  text-align: left;
+  padding: 15px; /* Ajusta el padding según sea necesario */
+  transition: background-color 0.3s, color 0.3s; /* Transición suave */
+  width: 100%; /* Asegúrate de que ocupe el ancho completo */
+}
+
+/* Opción seleccionada */
+#sidebar ul li.selected {
+  background-color: #6c757d; /* Color de fondo para la opción seleccionada */
+  color: #333; /* Color del texto cuando está seleccionado */
+}
+
+/* Efecto hover */
+#sidebar ul li:hover {
+  background-color: #34495e; /* Nuevo color al pasar el mouse */
+}
+
+/* Estilo del enlace dentro de las opciones */
+#sidebar ul li a {
+  color: #d1d1d1; /* Color por defecto del texto */
+  text-decoration: none;
+  display: block; /* Esto hace que el enlace ocupe todo el espacio disponible */
+  width: 100%; /* Asegúrate de que el enlace ocupe todo el ancho */
+  height: 100%; /* Esto asegura que el enlace ocupe toda la altura */
+}
+
+#sidebar ul li a i {
+  font-size: 1.5em;
+  margin-right: 10px;
+}
+
+#sidebar ul li:hover a {
+  color: #fff; /* Cambia el color del texto al pasar el mouse */
+}
+
+#content {
+  margin-left: 250px;
+  margin-top: 50px;
+  padding: 20px;
+  z-index: 1; /* Ajuste para evitar que el contenido quede detrás de la barra lateral */
+}
+
+#topbar {
+  background-color: #34495e; /* Nuevo color para la barra horizontal */
+  color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 250px;
+  width: calc(100% - 250px);
+  z-index: 1000;
+  border-bottom: 1px solid #2c3e50; /* Nuevo color para el borde inferior de la barra horizontal */
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#topbar .search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#topbar input[type="text"] {
+  width: 100%;
+  max-width: 400px;
+  margin-right: 10px;
+  display: block;
+  padding: 8px;
+  border: 1px solid #2c3e50; /* Nuevo color para el borde del campo de búsqueda */
+  border-radius: 5px;
+}
+
+#topbar input[type="text"]:focus {
+  outline: none;
+}
+
+#topbar .search-icon {
+  font-size: 1.2em;
+  color: #6c757d;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+#topbar .search-icon:hover {
+  color: #fff;
+}
+
+#profile {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+#profile .user-info {
+  display: flex;
+  align-items: center;
+}
+
+#profile img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-color: #000000;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+#profile .user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+#profile .user-name {
+  margin-bottom: 3px;
+  color: #fff; /* Color del texto del nombre de usuario */
+  font-weight: bold; /* Negrita para el nombre de usuario */
+  font-size: 14px; /* Tamaño de fuente igual al de las opciones */
+}
+
+#profile .user-role {
+  font-size: 14px; /* Ajustado para que coincida con el tamaño de las opciones */
+  color: #0bf050; /* Color del texto del rol */
+}
+
+#profile .options {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 5px 12px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  right: 50px;
+  top: 60px;
+  z-index: 1000;
+  width: 135px; /* Aumentar el ancho para más comodidad */
+  padding: 10px 0; /* Espaciado alrededor de las opciones */
+}
+
+#profile .options.show {
+  display: flex;
+  flex-direction: column;
+}
+
+#profile .options a {
+  color: #333;
+  padding: 10px 20px; /* Espaciado interno más amplio */
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s; /* Transición de color */
+  border-radius: 5px;
+  font-size: 15px; /* Tamaño de fuente claro */
+}
+
+#profile .options a:hover {
+  background-color: #f1f1f1; /* Color de fondo más visible */
+  color: #007bff; /* Color de texto en hover */
+}
+
+
+/* Estilo para el efecto seleccionado */
+.selected {
+ /* Cambia esto al nuevo color deseado */
+  color: #1781c7; /* Cambia el color del texto cuando está seleccionado */
+  transform: scale(1.03); /* Aumenta el tamaño en un 25% */
+}

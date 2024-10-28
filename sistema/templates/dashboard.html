@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block title %}Menú{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <!-- Script personalizado para la página de inicio de sesión -->
+    <script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <!-- Contenido específico del menú -->
+    <div id="sidebar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='img/logo2.png') }}" alt="Logo de la empresa">
+        </div>
+        <ul>
+            <li data-id="1"><a href="#" id="inicio" onclick="loadContent('inicio', this)"><i class="fas fa-home"></i> Inicio</a></li>
+            
+            {% if account[5] == 'Supervisión' %}  <!-- Verifica si el rol es supervisión -->
+                <li data-id="2"><a href="#" id="registrodeusuarios" onclick="loadContent('registrodeusuarios', this)"><i class="fa-solid fa-pen-to-square"></i> Registro de Usuarios</a></li>
+                <li data-id="3"><a href="#" id="gestiondeusuarios" onclick="loadContent('gestiondeusuarios', this)"><i class="fas fa-user"></i> Gestión de Usuarios</a></li>
+            {% endif %}
+            
+            <li data-id="4"><a href="#" id="checklist" onclick="loadContent('checklist', this)"><i class="fa-sharp fa-solid fa-file"></i> Check List</a></li>
+            <li data-id="5"><a href="#" id="matrizdeescalamiento" onclick="loadContent('matrizdeescalamiento', this)"><i class="fa-solid fa-clipboard"></i> Matriz de Escalamiento</a></li>
+            <li data-id="6"><a href="#" id="horarios" onclick="loadContent('horarios', this)"><i class="fas fa-video"></i> Horarios</a></li>
+            <li><a href="{{ url_for('logout') }}" id="logoutButton" onclick="clearLocalStorage()"><i class="fas fa-sign-out-alt"></i> Salir</a></li>
+        </ul>
+    </div>
+  
+    <div id="content">
+        <div id="topbar">
+            <div class="search-container">
+                <input type="text" placeholder="Buscar...">
+                <i class="fas fa-search search-icon"></i>
+            </div>
+            <!-- Dentro del div con id="profile" -->
+            <div id="profile">
+                <div class="user-info">
+                    <img src="{{ url_for('static', filename='img/user.png') }}" alt="Foto de perfil" onclick="toggleOptions()">
+                    <div class="user-details">
+                        <span class="user-name">{{ account[1] }}</span>
+                        <span class="user-role">{{ account[5] }}</span>
+                    </div>
+                </div>
+                <div class="options" style="display: none;">
+                    <a href="#" onclick="selectOption(this)">Perfil</a>
+                    <a href="#" onclick="selectOption(this)">Configuración</a>
+                    <a href="#" onclick="selectOption(this)">Cambiar Logo</a>
+                    <a href="#" onclick="selectOption(this)">Ayuda</a>
+                </div>
+            </div>
+        </div>
+  
+        <!-- Contenedor para el contenido principal -->
+        <div id="main-content">
+        
+        </div>
+    </div>
+{% endblock %}

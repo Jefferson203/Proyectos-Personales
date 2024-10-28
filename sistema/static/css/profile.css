@@ -1,0 +1,110 @@
+.user-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-picture {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-left: 19%;
+  border: 3px solid #dadada;
+}
+
+#profile-picture {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.file-input-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.file-input-label {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #3498db;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.profile-picture:hover .file-input-wrapper {
+  opacity: 1;
+}
+
+.profile-details {
+  max-width: 100%;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-control {
+  max-width: 100%;
+}
+
+.user-contact-info {
+  font-size: 14px;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+#user-name-container{
+  font-size: 15pt;
+}
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-weight: bold;
+}
+
+.save-changes-btn,
+.exit-btn {
+  margin-top: 20px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 200px;
+  margin-right: 5px;
+}
+
+.save-changes-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.exit-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.save-changes-btn:hover,
+.exit-btn:hover {
+  opacity: 0.9;
+}
+
+.text-yellow {
+  color: rgb(104, 104, 104);
+}

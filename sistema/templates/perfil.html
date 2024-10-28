@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario</title>
+  <!-- Enlaces a Bootstrap y estilos CSS -->
+  <link rel="stylesheet" href="./static/css/profile.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  
+ 
+</head>
+<body>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-picture text-center position-relative" onmouseover="showCameraIcon()" onmouseout="hideCameraIcon()">
+              <!-- Cambiar "user-profile.jpg" con el nombre de la imagen de perfil actual -->
+              <img src="./static/img/user.png" class="img-fluid rounded-circle" id="profile-picture">
+              <div class="file-input-wrapper">
+                <input type="file" id="profile-picture-input" accept="image/*" class="position-absolute top-0 start-0 translate-middle" style="opacity: 0; cursor: pointer;" onchange="changeProfilePicture(event)">
+                <label for="profile-picture-input" class="file-input-label">Cambiar Foto 📷</label>
+              </div>
+            </div>
+            
+            <div class="profile-description text-center mt-3">
+              <p id="user-description" class="mb-2 text-justify text-yellow">Esta es mi foto de perfil actual, Soy Zidany Otarola Castilla...</p>
+              <button class="btn btn-sm btn-warning" onclick="editDescription()">Editar Descripción</button>
+              <button class="btn btn-sm btn-success d-none" id="save-description-btn" onclick="saveDescription()">Guardar</button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="profile-details">
+              <div class="user-info">
+                <div id="user-name-container">
+                  <div id="user-name"><b>Zidany Otarola Castilla</b></div>
+                </div>
+              </div>
+              
+              <div class="user-role">Super Administrador</div>
+              <div class="user-contact-info">
+                <div class="form-group mb-3">
+                  <label for="dni" class="form-label">DNI</label>
+                  <input type="text" class="form-control" id="dni" value="12345678" disabled>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="fecha" class="form-label">Fecha de Nacimiento</label>
+                  <input type="date" class="form-control" id="fechan" value="">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="phone" class="form-label">Teléfono</label>
+                  <input type="text" class="form-control" id="phone" value="+123 456-7890">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" value="correo@example.com" disabled>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="country" class="form-label">Estado Civil</label>
+                  <select class="form-control" id="estadocivil">
+                    <option value="Masculino">Soltero</option>
+                    <option value="Femenino">Casado</option>
+                    <option value="Masculino">Divorciado</option>
+                  </select>
+                  
+                </div>
+                <div class="form-group mb-3">
+                  <label for="genero" class="form-label">Género</label>
+                  <select class="form-control" id="genero">
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-success save-changes-btn" onclick="saveChanges()">Guardar Cambios</button>
+              <button class="btn btn-danger exit-btn" onclick="goToMenu()">Salir a Menú</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+  <!-- Agrega tu script JavaScript aquí -->
+  <script src="./static/js/profile.js"></script>
+  <script>
+
+ 
+    function editDescription() {
+      const descriptionElement = document.getElementById('user-description');
+      const saveBtn = document.getElementById('save-description-btn');
+    
+      // Habilitar la edición de la descripción
+      descriptionElement.contentEditable = true;
+      descriptionElement.focus();
+    
+      // Mostrar el botón de "Guardar"
+      saveBtn.classList.remove('d-none');
+    }
+    
+    function saveDescription() {
+      const descriptionElement = document.getElementById('user-description');
+      const saveBtn = document.getElementById('save-description-btn');
+    
+      // Deshabilitar la edición de la descripción
+      descriptionElement.contentEditable = false;
+    
+      // Ocultar el botón de "Guardar"
+      saveBtn.classList.add('d-none');
+    }
+    
+  </script>
+</body>
+</html>
+
+
+
