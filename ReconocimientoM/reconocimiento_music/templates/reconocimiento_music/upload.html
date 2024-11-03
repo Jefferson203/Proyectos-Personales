@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../static/img/icon.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <title>Identificación de Canciones</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: url('../static/img/fondo.jpg') no-repeat center center fixed; /* Añade tu imagen de fondo */
+            background-size: cover;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            backdrop-filter: blur(5px); /* Difumina el fondo */
+        }
+        .container {
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad */
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            border-top: 5px solid #007bff;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        h1 {
+            color: #007bff;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        .file-drop-area {
+            border: 2px dashed #007bff;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .file-drop-area.hover {
+            background-color: rgba(0, 123, 255, 0.1);
+        }
+        input[type="file"] {
+            display: none; /* Oculta el input de archivo */
+        }
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .results-table td strong {
+            font-weight: bold; /* Esto asegura que el texto esté en negrita */
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1em;
+            width: 45%;
+        }
+        button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+        .clear-button {
+            background-color: #dc3545;
+        }
+        .clear-button:hover {
+            background-color: #b52a33;
+        }
+        .results {
+            margin-top: 30px;
+        }
+        .results h2 {
+            font-size: 1.5em;
+            color: #007bff;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .results-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .results-table th, .results-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .results-table th {
+            background-color: #007bff;
+            color: white;
+        }
+        .results-table td {
+            background-color: #f9f9f9;
+        }
+        .loader {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+        .loader div {
+            width: 40px;
+            height: 40px;
+            border: 5px solid #007bff;
+            border-radius: 50%;
+            border-top: 5px solid transparent;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .empty-row td {
+            color: #999;
+            text-align: center;
+            font-style: italic;
+        }
+        .signature {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .custom-button {
+            width: 100px;
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+        }
+        .file-name {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #007bff;
+            text-align: center;
+        }
+        /* Agrega esta clase a tu CSS */
+        .custom-button {
+            width: 50px; /* Establece el ancho deseado */
+            margin: 0 auto; /* Centra el botón */
+        }
+
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>IDENTIFICAR CANCIÓN</h1>
+        <form id="identificationForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label for="audio_file">Selecciona un archivo de audio o video o arrástralo aquí:</label>
+            <div class="file-drop-area" id="file-drop-area">
+                Arrastra tu archivo aquí o haz clic para seleccionar
+                <input type="file" id="audio_file" name="audio_file" accept="audio/*, video/*">
+            </div>
+            <div class="file-name" id="file-name"></div> <!-- Div para mostrar el nombre del archivo -->
+            <div class="button-container">
+                <button type="submit">Analizar</button>
+                <button type="button" class="clear-button" onclick="clearResults()">Limpiar</button>
+            </div>
+        </form>
+
+        <div class="results">
+            <h2>Resultados de la Identificación</h2>
+            <table class="results-table" id="resultsTable">
+                <tr>
+                    <th>Género</th>
+                    <th>Álbum</th>
+                    <th>Canción</th>
+                    <th>Artista</th>
+                </tr>
+                {% if song_info %}
+                    {% for song in song_info %}
+                        <tr>
+                            <!-- Mostrar el nombre del archivo aquí -->
+                            <td>{% for genre in song.genres %}{{ genre.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                            <td>{{ song.album.name }}</td>
+                            <td>{{ song.title }}</td>
+                            <td>{% for artist in song.artists %}{{ artist.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr class="empty-row">
+                        <td colspan="5">No se ha identificado ninguna canción aún.</td>
+                    </tr>
+                {% endif %}
+            </table>
+            
+        </div>
+
+        <div class="loader" id="loader">
+            <div></div>
+        </div>
+    </div>
+
+    <div class="signature">
+        <i>Desarrollado por <b>Manhwas YT</b> - {{ año }}</i>
+    </div>
+    <script>
+        // Manejador de eventos para arrastrar y soltar archivos
+        const fileDropArea = document.getElementById('file-drop-area');
+        const fileInput = document.getElementById('audio_file');
+        const fileNameDisplay = document.getElementById('file-name');
+        const form = document.getElementById('identificationForm');
+        const clearButton = document.getElementById('clearButton');
+        const resultsTable = document.getElementById('resultsTable');
+    
+        // Verificar si los resultados han sido limpiados
+        if (localStorage.getItem('resultsCleared') === 'true') {
+            clearPreviousResults(); // Limpia la tabla si se ha limpiado previamente
+            fileNameDisplay.textContent = ''; // Asegúrate de limpiar el nombre del archivo
+            localStorage.removeItem('uploadedFileName'); // También elimina el nombre del archivo del localStorage
+        }
+    
+        // Recuperar el nombre del archivo si existe en el localStorage
+        const storedFileName = localStorage.getItem('uploadedFileName');
+        if (storedFileName) {
+            fileNameDisplay.textContent = "Archivo Seleccionado: " + storedFileName; // Muestra el nombre del archivo guardado
+        }
+    
+        fileDropArea.addEventListener('click', () => {
+            fileInput.click(); // Simula un clic en el input de archivo
+        });
+    
+        fileDropArea.addEventListener('dragover', (event) => {
+            event.preventDefault(); // Previene el comportamiento por defecto
+            fileDropArea.classList.add('hover'); // Añade clase de hover
+        });
+    
+        fileDropArea.addEventListener('dragleave', () => {
+            fileDropArea.classList.remove('hover'); // Remueve clase de hover
+        });
+    
+        fileDropArea.addEventListener('drop', (event) => {
+            event.preventDefault(); // Previene el comportamiento por defecto
+            fileDropArea.classList.remove('hover'); // Remueve clase de hover
+            fileInput.files = event.dataTransfer.files; // Asigna los archivos al input
+            displayFileName(); // Muestra el nombre del archivo
+        });
+    
+        fileInput.addEventListener('change', () => {
+            displayFileName();
+            localStorage.setItem('uploadedFileName', fileInput.files[0].name); // Guarda el nombre del archivo en localStorage
+        });
+    
+        form.addEventListener('submit', function(event) {
+            if (!validateForm(event)) {
+                event.preventDefault(); // Previene el envío del formulario
+            } else {
+                localStorage.removeItem('resultsCleared'); // Limpia el estado de resultados al analizar
+                clearPreviousResults(); // Limpia los resultados anteriores
+                // Aquí puedes agregar la lógica para analizar el archivo y llenar la tabla
+            }
+        });
+    
+        clearButton.addEventListener('click', clearResults); // Asigna el evento al botón de limpiar
+    
+        function displayFileName() {
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = "Archivo Seleccionado: " + fileInput.files[0].name;
+                localStorage.setItem('uploadedFileName', fileInput.files[0].name); // Guarda el nombre del archivo
+            } else {
+                fileNameDisplay.textContent = ''; // Limpia el nombre del archivo si no hay archivos
+                localStorage.removeItem('uploadedFileName'); // Elimina el nombre del archivo si no hay selección
+            }
+        }
+    
+        function validateForm(event) {
+            if (fileInput.files.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No se ha seleccionado un archivo',
+                    text: 'Por favor, selecciona un archivo de audio o video para analizar.',
+                    customClass: {
+                        confirmButton: 'custom-button' // Aplica la clase personalizada al botón de confirmación
+                    }
+                });
+                return false; // Previene el envío del formulario
+            }
+            return true; // Permite el envío del formulario
+        }
+    
+        function clearResults() {
+            fileInput.value = ''; // Limpia el input de archivo
+            fileNameDisplay.textContent = ''; // Limpia el nombre del archivo
+            clearPreviousResults(); // Limpia la tabla de resultados
+            localStorage.setItem('resultsCleared', 'true'); // Marca los resultados como limpiados
+    
+            // Llama a la función para eliminar todos los archivos de la carpeta de medios
+            clearMedia();
+    
+            // Muestra una alerta de confirmación al limpiar
+            Swal.fire({
+                icon: 'info',
+                title: 'Resultados Limpiados',
+                text: 'Los resultados han sido limpiados con éxito.',
+                customClass: {
+                    confirmButton: 'custom-button' // Aplica la clase personalizada al botón de confirmación
+                }
+            });
+        }
+    
+        function clearMedia() {
+            fetch("{% url 'clear_media' %}", {
+                method: 'POST',
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    const resultsTable = document.getElementById('resultsTable');
+                    resultsTable.innerHTML =` 
+                        <tr>
+                            <th>Archivo</th>
+                            <th>Género</th>
+                            <th>Álbum</th>
+                            <th>Canción</th>
+                            <th>Artista</th>
+                        </tr>
+                        <tr class="empty-row">
+                            <td colspan="5">No se ha identificado ninguna canción aún.</td>
+                        </tr>
+                     `;
+                    console.log("Exito...");
+                   
+                } else {
+                    console.log("error...");
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al limpiar la carpeta: ' + error,
+                    confirmButtonText: 'Aceptar'
+                });
+            });
+        }
+    
+        function clearPreviousResults() {
+            while (resultsTable.rows.length > 1) {
+                resultsTable.deleteRow(1); // Borra las filas de resultados
+            }
+        }
+    </script>
+    
+   
+
+</body>
+</html>
+
