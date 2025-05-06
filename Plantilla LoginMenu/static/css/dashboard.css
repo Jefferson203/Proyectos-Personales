@@ -1,0 +1,191 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+  }
+
+  #sidebar {
+    height: 100vh;
+    width: 250px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #2c3e50; /* Nuevo color para el sidebar */
+    padding-top: 20px;
+    overflow-x: hidden;
+    transition: width 0.5s;
+    border-right: 1px solid #34495e; /* Nuevo color para el borde del sidebar */
+    box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #sidebar .logo {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  #sidebar .logo img {
+    width: 80%;
+    border-radius: 10%;
+  }
+
+  #sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  #sidebar ul li {
+    text-align: left;
+    padding: 15px;
+    transition: background-color 0.3s;
+  }
+
+  #sidebar ul li a {
+    color: #d1d1d1;
+    text-decoration: none;
+    display: block;
+  }
+
+  #sidebar ul li a i {
+    font-size: 1.5em;
+    margin-right: 10px;
+  }
+
+  #sidebar ul li.selected {
+    background-color: #34495e; /* Nuevo color de fondo para la opción seleccionada */
+  }
+
+  #sidebar ul li.selected a {
+    color: #fff;
+  }
+
+  #sidebar ul li:hover {
+    background-color: #34495e; /* Nuevo color al pasar el mouse */
+  }
+
+  #sidebar ul li:hover a {
+    color: #fff;
+  }
+
+  #content {
+    margin-left: 250px;
+    margin-top: 50px;
+    padding: 20px;
+    z-index: 1; /* Ajuste para evitar que el contenido quede detrás de la barra lateral */
+  }
+
+  #topbar {
+    background-color: #34495e; /* Nuevo color para la barra horizontal */
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 250px;
+    width: calc(100% - 250px);
+    z-index: 1000;
+    border-bottom: 1px solid #2c3e50; /* Nuevo color para el borde inferior de la barra horizontal */
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  #topbar .search-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  #topbar input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+    margin-right: 10px;
+    display: block;
+    padding: 8px;
+    border: 1px solid #2c3e50; /* Nuevo color para el borde del campo de búsqueda */
+    border-radius: 5px;
+  }
+
+  #topbar input[type="text"]:focus {
+    outline: none;
+  }
+
+  #topbar .search-icon {
+    font-size: 1.2em;
+    color: #6c757d;
+    transition: color 0.3s;
+    cursor: pointer;
+  }
+
+  #topbar .search-icon:hover {
+    color: #fff;
+  }
+
+  #profile {
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+
+  #profile .user-info {
+    display: flex;
+    align-items: center;
+  }
+  
+  #profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border-color: #000000;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  #profile .user-details {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #profile .user-name {
+    margin-bottom: 3px;
+    color: #fff; /* Color del texto del nombre de usuario */
+    font-weight: bold; /* Negrita para el nombre de usuario */
+  }
+  
+  #profile .user-role {
+    font-size: 12px;
+    color: #ccc; /* Color del texto del rol */
+  }
+  
+  #profile .options {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    right: 0;
+    top: 60px;
+    z-index: 1000;
+    width: 150px;
+  }
+  
+  #profile .options.show {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #profile .options a {
+    color: #333;
+    padding: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+  }
+  
+  #profile .options a:hover {
+    background-color: #f8f9fa;
+  }
+  

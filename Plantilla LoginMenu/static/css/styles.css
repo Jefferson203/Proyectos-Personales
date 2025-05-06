@@ -1,0 +1,57 @@
+body {
+  background-color: #f8f9fa;
+  overflow-x: hidden;
+}
+
+.logo-login {
+  display: block;
+  margin: 0 auto; /* Añadido para centrar el logo horizontalmente */
+  width: 180px;
+  height: auto;
+  margin-bottom: 10px; /* Ajustado para dar espacio entre el logo y el texto */
+}
+
+.login-container {
+  max-width: 400px; /* Ajusta el ancho según tus necesidades */
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
+  color: #495057;
+}
+
+h2 {
+  text-align: center; /* Añadido para centrar el texto horizontalmente */
+  margin-bottom: 20px;
+}
+
+.btn-login {
+  display: block;
+  margin: 0 auto; /* Añadido para centrar el botón horizontalmente */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+.btn-forgot {
+  color: #007bff;
+  text-decoration: none;
+}
+

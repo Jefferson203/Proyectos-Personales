@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Perfil de Usuario</title>
+  <!-- Enlaces a Bootstrap y estilos CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./styles/css/profile.css">
+  
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <style>
+    #profile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      justify-content: center; /* Alineación horizontal */
+    }
+
+    .profile-picture {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      overflow: hidden;
+      background-color: #f0f0f0; /* Color de fondo predeterminado */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-left: 20%;
+      border: 3px solid #dadada; /* Añadido para el borde negro */
+    }
+    
+    
+    #profile-picture {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center; /* Centra la imagen dentro del círculo */
+    }
+    
+    .file-input-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .file-input-label {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #3498db;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    
+  
+
+    #profile-picture:hover {
+      border-color: #267bbf;
+    }
+
+    #profile-picture-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-input-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .file-input-label {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #3498db;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .profile-picture:hover .file-input-wrapper {
+      opacity: 1;
+    }
+
+    .profile-details {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    #user-name-container {
+      position: relative;
+      margin-bottom: 10px; /* Ajuste para separar del borde superior de la card */
+    }
+
+    #user-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 5px;
+      cursor: pointer;
+      color: #3498db;
+      white-space: nowrap;
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    .edit-icon {
+      position: absolute;
+      left: calc(100% + 20px);
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      cursor: pointer;
+      transition: left 0.3s, transform 0.3s;
+      display: none;
+    }
+
+    #user-name-container:hover #user-name {
+      text-decoration: underline;
+    }
+
+    #user-name-container:hover .edit-icon {
+      display: block;
+    }
+
+    .user-role {
+      font-size: 16px;
+      color: #888;
+      margin-bottom: 20px;
+    }
+
+    .user-contact-info {
+      font-size: 14px;
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .save-changes-btn, .exit-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 200px;
+      margin-right: 5px;
+    }
+
+    .save-changes-btn {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .exit-btn {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .save-changes-btn:hover, .exit-btn:hover {
+      opacity: 0.9;
+    }
+    .text-yellow {
+      color: rgb(104, 104, 104);
+    }
+    
+  </style>
+</head>
+<body>
+
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="profile-picture text-center position-relative" onmouseover="showCameraIcon()" onmouseout="hideCameraIcon()">
+              <!-- Cambiar "user-profile.jpg" con el nombre de la imagen de perfil actual -->
+              <img src="./styles/img/user.png" class="img-fluid rounded-circle" id="profile-picture">
+              <div class="file-input-wrapper">
+                <input type="file" id="profile-picture-input" accept="image/*" class="position-absolute top-0 start-0 translate-middle" style="opacity: 0; cursor: pointer;" onchange="changeProfilePicture(event)">
+                <label for="profile-picture-input" class="file-input-label">Cambiar Foto 📷</label>
+              </div>
+            </div>
+            
+            <div class="profile-description text-center mt-3">
+              <p id="user-description" class="mb-2 text-justify text-yellow">Esta es mi foto de perfil actual, Soy Zidany Otarola Castilla...</p>
+              <button class="btn btn-sm btn-warning" onclick="editDescription()">Editar Descripción</button>
+              <button class="btn btn-sm btn-success d-none" id="save-description-btn" onclick="saveDescription()">Guardar</button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="profile-details">
+              <div class="user-info">
+                <div id="user-name-container">
+                  <div id="user-name" onclick="enableNameEdit()">Zidany Otarola Castilla</div>
+                  <div class="edit-icon" onclick="enableNameEdit()">✏️</div>
+                </div>
+              </div>
+              
+              <div class="user-role">Super Administrador</div>
+              <div class="user-contact-info">
+                <div class="form-group mb-3">
+                  <label for="dni" class="form-label">DNI</label>
+                  <input type="text" class="form-control" id="dni" value="12345678" disabled>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="fecha" class="form-label">Fecha de Nacimiento</label>
+                  <input type="date" class="form-control" id="fechan" value="">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="phone" class="form-label">Teléfono</label>
+                  <input type="text" class="form-control" id="phone" value="+123 456-7890">
+                </div>
+                <div class="form-group mb-3">
+                  <label for="email" class="form-label">Correo Electrónico</label>
+                  <input type="email" class="form-control" id="email" value="correo@example.com" disabled>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="country" class="form-label">País</label>
+                  <select class="form-control" id="country" disabled>
+                    <!-- Opciones de países se cargarán dinámicamente con JavaScript -->
+                  </select>
+                  <div class="country-loading">Cargando países...</div>
+                </div>
+                <div class="form-group mb-3">
+                  <label for="genero" class="form-label">Género</label>
+                  <select class="form-control" id="genero">
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                  </select>
+                </div>
+              </div>
+              <button class="btn btn-success save-changes-btn" onclick="saveChanges()">Guardar Cambios</button>
+              <button class="btn btn-danger exit-btn" onclick="goToMenu()">Salir a Menú</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Enlace a Bootstrap JS y Popper.js -->
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"></script>
+  <!-- Agrega tu script JavaScript aquí -->
+  <script src="./styles/js/profile.js"></script>
+  <script>
+
+      // Esperar a que se cargue el DOM
+      $(document).ready(function () {
+        // Obtener la lista de países usando la API Rest Countries
+        $.ajax({
+          url: 'https://restcountries.com/v3.1/all',
+          type: 'GET',
+          success: function (data) {
+            // Ordenar la lista de países alfabéticamente
+            data.sort(function (a, b) {
+              const nameA = a.name.common.toUpperCase();
+              const nameB = b.name.common.toUpperCase();
+              if (nameA < nameB) {
+                return -1;
+              }
+              if (nameA > nameB) {
+                return 1;
+              }
+              return 0;
+            });
+    
+            // Llenar el select con las opciones de los países
+            const countrySelect = $('#country');
+            const countryLoading = $('.country-loading');
+            countrySelect.prop('disabled', false);
+            countryLoading.hide();
+    
+            data.forEach(function (country) {
+              const option = $('<option></option>');
+              option.val(country.name.common);
+              option.text(country.name.common);
+              countrySelect.append(option);
+            });
+          },
+          error: function () {
+            const countrySelect = $('#country');
+            const countryLoading = $('.country-loading');
+            countrySelect.prop('disabled', true);
+            countryLoading.text('Error al cargar países');
+          }
+        });
+      });
+    
+    
+      function goToMenu() {
+        // Reemplaza 'ruta_del_menu.html' con la ruta correcta de tu archivo del menú
+        window.location.href = 'dashboard.html';
+      }
+      
+
+    function enableNameEdit() {
+      const userName = document.getElementById('user-name');
+      userName.contentEditable = true;
+      userName.focus();
+    }
+    
+    function editDescription() {
+      const descriptionElement = document.getElementById('user-description');
+      const saveBtn = document.getElementById('save-description-btn');
+    
+      // Habilitar la edición de la descripción
+      descriptionElement.contentEditable = true;
+      descriptionElement.focus();
+    
+      // Mostrar el botón de "Guardar"
+      saveBtn.classList.remove('d-none');
+    }
+    
+    function saveDescription() {
+      const descriptionElement = document.getElementById('user-description');
+      const saveBtn = document.getElementById('save-description-btn');
+    
+      // Deshabilitar la edición de la descripción
+      descriptionElement.contentEditable = false;
+    
+      // Ocultar el botón de "Guardar"
+      saveBtn.classList.add('d-none');
+    }
+    
+  </script>
+</body>
+</html>
+
+
+
