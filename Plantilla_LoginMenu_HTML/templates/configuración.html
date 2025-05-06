@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuración</title>
+ <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      margin-top: 50px;
+      max-width: 600px;
+    }
+
+    .card {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-header {
+      background-color: #fff;
+      color: #333;
+      font-weight: bold;
+      text-align: center;
+      font-size: 24px;
+      border-bottom: none;
+    }
+
+    .card-body {
+      text-align: center;
+    }
+
+    .card-text {
+      font-size: 18px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .btn-primary {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      text-decoration: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: #555;
+    }
+
+    .btn-back {
+      background-color: #6c757d;
+      color: #fff;
+      border: none;
+      margin-top: 20px;
+      text-decoration: none;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+
+    .btn-back:hover {
+      background-color: #495057;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        Configuración
+      </div>
+      <div class="card-body">
+        <div class="card-text">Nombre de usuario: Josue <a href="#" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#changeUsernameModal">Cambiar</a></div>
+        <div class="card-text">Contraseña: ******** <a href="#" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Cambiar</a></div>
+        <div class="card-text">Correo electrónico: vegetaiv2020@gmail.com <a href="#" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#changeEmailModal">Cambiar</a></div>
+
+        <!--<a href="#" class="btn btn-back" onclick="goToMenu()">Regresar al Menú</a>-->
+
+     
+        
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Modales -->
+  <!-- Modal para cambiar nombre de usuario -->
+  <div class="modal fade" id="changeUsernameModal" tabindex="-1" aria-labelledby="changeUsernameModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changeUsernameModalLabel">Cambiar nombre de usuario</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="newUsername">Nuevo nombre de usuario</label>
+            <input type="text" class="form-control" id="newUsername" placeholder="Ingrese el nuevo nombre de usuario">
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" class="form-control" id="password" placeholder="Ingrese su contraseña">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-confirm">Confirmar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para cambiar la contraseña -->
+  <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changePasswordModalLabel">Cambiar contraseña</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="currentPassword">Contraseña actual</label>
+            <input type="password" class="form-control" id="currentPassword" placeholder="Ingrese su contraseña actual">
+          </div>
+          <div class="form-group">
+            <label for="newPassword">Nueva contraseña</label>
+            <input type="password" class="form-control" id="newPassword" placeholder="Ingrese la nueva contraseña">
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirmar nueva contraseña</label>
+            <input type="password" class="form-control" id="confirmPassword" placeholder="Confirme la nueva contraseña">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-confirm">Confirmar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para cambiar el correo electrónico -->
+  <div class="modal fade" id="changeEmailModal" tabindex="-1" aria-labelledby="changeEmailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="changeEmailModalLabel">Cambiar correo electrónico</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="newEmail">Nuevo correo electrónico</label>
+            <input type="email" class="form-control" id="newEmail" placeholder="Ingrese el nuevo correo electrónico">
+          </div>
+          <div class="form-group">
+            <label for="confirmNewEmail">Confirmar nuevo correo electrónico</label>
+            <input type="email" class="form-control" id="confirmNewEmail" placeholder="Confirme el nuevo correo electrónico">
+          </div>
+          <div class="form-group">
+            <label for="emailPassword">Contraseña</label>
+            <input type="password" class="form-control" id="emailPassword" placeholder="Ingrese su contraseña">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-confirm">Confirmar Cambios</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+</body>
+</html>
+
+
